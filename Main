@@ -1,0 +1,69 @@
+// this file is a java script which is about converting rediraction links to actual links on the internet
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+
+public class Main {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		// change below if necessary
+		String InputFileName="LongLinks.txt";
+		String OutputFileName="ShortLinks.txt";
+		
+		BufferedReader reader = new BufferedReader(new FileReader(InputFileName));
+		PrintWriter writer = new PrintWriter(OutputFileName, "UTF-8");
+		String line = null;
+		String newLine =null;
+		int number=0;
+		
+		// line=reader.readLine();
+		while ((line = reader.readLine()) != null)   {
+			newLine=sConvert(line);
+			writer.println (newLine);
+			number+=1;
+		}
+		
+			
+		    
+		
+		// Done with the file
+		reader.close();
+		writer.close();
+		
+		reader = null;
+		System.out.println("Conversion completed : "+number+" links converted !");
+	}
+	
+	
+	public static String sConvert(String line)
+	{
+		String newLine=line;
+		if (newLine.length()!=0)
+		{
+			// conversion
+			newLine=line.substring(line.lastIndexOf("http"));
+		    newLine=newLine.replace("%3A", ":");
+		    newLine=newLine.replace("%2F", "/");
+		    newLine=newLine.replace("%3F", "?");
+		    newLine=newLine.replace("%3D", "=");
+		    newLine=newLine.replace("%26", "&");
+		    newLine=newLine.replace("%23", "#");
+		}
+		
+		return newLine;
+		
+		
+	}
+
+}
+
+
